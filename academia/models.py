@@ -6,6 +6,10 @@ class Carrera(models.Model):
     nombre = models.CharField(max_length=50)
     duracion = models.PositiveSmallIntegerField(default=5)
 
+    def __str__(self):
+        texto = "{0}, (Duración: {1} años)"
+        return texto.format(self.nombre, self.duracion)
+
 class Estudiante(models.Model):
     dni = models.CharField(max_length=8, primary_key=True)
     apellidos = models.CharField(max_length=50)
@@ -23,6 +27,9 @@ class Estudiante(models.Model):
     def nombre_completo(self):
         texto = "{0}, {1}"
         return texto.format(self.apellidos, self.nombres)
+    
+    def __str__(self):
+        return self.nombre_completo()
 
 class Curso(models.Model):
     codigo = models.CharField(max_length=6, primary_key=True)
