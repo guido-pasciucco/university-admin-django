@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Contacto</title>
+    <link rel="stylesheet" href="{% static 'css/form_contacto.css' %}">
+</head>
+<body>
+    <div class="box">
+        <h1>Contactanos</h1>
+        <form action="/contactar/" method="post">{% csrf_token %}
+            <div style="display: flex; justify-content: space-evenly;">
+                <div>
+                    <p>Asunto</p>
+                    <p>Correo</p>
+                    <p>Mensaje</p>
+                </div>
+                <div>
+                    <input type="text" name="txtAsunto">
+                    <input type="email" name="txtEmail">
+                    <textarea name="txtMensaje" cols="30" rows="5" style="resize: none;"></textarea>
+                </div>
+            </div>
+            <input type="submit" value="Enviar" id="btnSendForm">
+        </form>
+    </div>
+</body>
+</html>

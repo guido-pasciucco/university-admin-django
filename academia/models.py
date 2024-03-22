@@ -36,9 +36,18 @@ class Curso(models.Model):
     nombre = models.CharField(max_length=30)
     creditos = models.PositiveSmallIntegerField()
     docente = models.CharField(max_length=100)
+    def __str__(self):
+        texto = "{0} - {1} - {2} años - Prof. {3}"
+        return texto.format(self.codigo, self.nombre, self.creditos, self.docente)
 
 class Matricula(models.Model):
     id = models.AutoField(primary_key=True)
     estudiante = models.ForeignKey(Estudiante, null=False, blank=False, on_delete=models.CASCADE)
     curso = models.ForeignKey(Curso, null=False, blank=False, on_delete=models.CASCADE)
     fecha_matricula = models.DateTimeField(auto_now_add=True)
+    def __str__(self):
+        txt = "{0} matriculad{1} en el curso {2} / fecha: {3}"
+        if self.estudiante.genero == 'F': letraGenero = "a"
+        else: letraGenero = "o"
+        fecha_matricula = self.fecha_matricula.strftime("%d/%m/%Y %H:%M:%S")
+        return txt.format(self.estudiante.nombre_completo(), letraGenero, self.curso, fecha_matricula)
