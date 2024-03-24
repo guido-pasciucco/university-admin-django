@@ -27,12 +27,12 @@ class Curso(models.Model):
     codigo = models.CharField(max_length=6, primary_key=True)
     nombre = models.CharField(max_length=30)
     creditos = models.PositiveSmallIntegerField()
-    docente_a_cargo = models.ForeignKey('Docente', null=False, blank=False, on_delete=models.CASCADE)
+    docente_a_cargo = models.ForeignKey('Docente', null=True, blank=True, on_delete=models.CASCADE)
     def __str__(self):
         return f'{0} - {1} - {2} años - Prof. {3}'
 
 class Docente(Persona):
-    curso_a_cargo = models.ForeignKey(Curso, null=False, blank=False, on_delete=models.CASCADE)
+    curso_a_cargo = models.ForeignKey(Curso, null=True, blank=True, on_delete=models.CASCADE)
     categorias = [
         ('1', 'Ayudante de Catedra'),
         ('2', 'Jefe de Trabajos Practicos'),
@@ -47,7 +47,11 @@ class Docente(Persona):
     ]
     categoria = models.CharField(max_length=1, choices=categorias, default='1')
     dedicacion = models.CharField(max_length=1, choices=dedicaciones, default='1')
+    def __str__(self):
+        return f'{self.dni} - {self.nombre_completo()} - {self.curso_a_cargo} - {self.categoria} - {self.dedicacion}'
 
 class Estudiante(Persona):
     carrera = models.ForeignKey(Carrera, null=False, blank=False, on_delete=models.CASCADE)
     regularidad = models.BooleanField(default=True)
+    def __str__(self):
+        return f'{self.dni} - {self.nombre_completo()} - {self.carrera} - {self.regularidad}'
