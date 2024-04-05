@@ -20,6 +20,15 @@ class Carrera(models.Model):
     codigo = models.CharField(max_length=3, primary_key=True)
     nombre = models.CharField(max_length=50)
     duracion = models.PositiveSmallIntegerField(default=5)
+    tipos = [
+        ('1', 'Diplomatura'),
+        ('2', 'Tecnicatura'),
+        ('3', 'Licenciatura'),
+        ('4', 'Ingenieria'),
+        ('5', 'Master'),
+        ('6', 'Doctorado'),
+    ]
+    tipo = models.CharField(max_length=1, choices=tipos, default='F')
     def __str__(self):
         return f'{self.nombre}, (Duración: {self.duracion} años)'
 
